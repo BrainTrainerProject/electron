@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World!</title>
+</head>
+
+<webview class="webview" preload="./preload.js"
+         src="http://localhost:8000/"></webview>
+
+<script>
+    window.isElectron = function () {
+        return 'bridge' in window;
+    };
+</script>
+</html>

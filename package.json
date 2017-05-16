@@ -1,0 +1,41 @@
+{
+  "name": "braintrainer",
+  "version": "0.0.0",
+  "description": "Braintrainer",
+  "main": "app/main.js",
+  "scripts": {
+    "gulp": "gulp",
+    "build": "gulp bundle",
+    "start": "gulp bundle && electron ./app/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrejSperling/BrainTrainer.git"
+  },
+  "keywords": [
+    "braintrainer",
+    "cyclejs"
+  ],
+  "author": "BrainTrainer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AndrejSperling/BrainTrainer/issues"
+  },
+  "homepage": "https://github.com/AndrejSperling/BrainTrainer#readme",
+  "devDependencies": {
+    "@types/electron": "^1.4.37",
+    "@types/node": "^7.0.18",
+    "electron": "~1.6.2",
+    "fs-jetpack": "^0.13.3",
+    "gulp": "^3.9.1",
+    "jetpack": "^0.3.0",
+    "rollup": "^0.41.6",
+    "run-sequence": "^1.2.2",
+    "typescript": "^2.3.2",
+    "typings": "^2.1.1"
+  },
+  "dependencies": {
+    "menubar": "git+https://github.com/AndrejSperling/menubar.git",
+    "underscore": "^1.8.3"
+  }
+}
