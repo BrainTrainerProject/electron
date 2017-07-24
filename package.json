@@ -5,8 +5,8 @@
   "main": "app/main.js",
   "scripts": {
     "gulp": "gulp",
-    "build": "gulp bundle",
-    "start": "gulp bundle && electron ./app/main.js"
+    "build": "tsc && gulp bundle",
+    "start": "tsc && gulp bundle && electron ./app/main.js"
   },
   "repository": {
     "type": "git",
