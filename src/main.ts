@@ -13,8 +13,8 @@ const popupUrl = url.format({
 
 const mb = menubar({
     index: popupUrl,
-    tooltip: "Correo",
-    icon: __dirname + "/res/icon.png",
+    tooltip: "Brain Trainer",
+    icon: __dirname + "/icon.png",
     width: 400,
     height: 500,
     transparent: true,
@@ -27,12 +27,18 @@ let isShown = false;
 
 const contextMenu = electron.Menu.buildFromTemplate([
     {
+      label: 'Open',
+      click() {
+        Main.mainWindow.show();
+      }
+    },
+    {
         label: 'About',
         click() {
             electron.dialog.showMessageBox({
-                title: "Correo",
+                title: "Brain Trainer",
                 type: "info",
-                message: "A menubar/taskbar Gmail App \nMIT Copyright (c) 2016 Amit Merchant <bullredeyes@gmail.com>",
+                message: "Train your brain with Brain Trainer today\nCreated as a semester project at Fh-Bielefeld Campus Minden, 2017",
                 buttons: ["Close"]
             });
         }
@@ -40,7 +46,7 @@ const contextMenu = electron.Menu.buildFromTemplate([
     {
         label: 'Website',
         click() {
-            electron.shell.openExternal("https://github.com/amitmerchant1990/correo");
+            electron.shell.openExternal("https://braintrainer.herokuapp.com/layout.html");
         }
     },
     {
@@ -49,6 +55,7 @@ const contextMenu = electron.Menu.buildFromTemplate([
     {
         label: 'Quit',
         click() {
+            Main.willQuit = true;
             mb.app.quit();
         }
     }
@@ -60,13 +67,21 @@ export default class Main {
     static mainWindow: Electron.BrowserWindow;
     static application: Electron.App;
     static BrowserWindow;
+    static willQuit: boolean = false;
 
     private static onWindowAllClosed() {
         if (process.platform !== 'darwin')
             Main.application.quit();
     }
 
-    private static onClose() {
+    private static onClose(e) {
+      if (!Main.willQuit) {
+        e.preventDefault();
+        Main.mainWindow.hide();
+      }
+    }
+
+    private static onClosed() {
         // Dereference the window object.
         Main.mainWindow = null;
     }
@@ -75,9 +90,11 @@ export default class Main {
         Main.mainWindow =
             new Main.BrowserWindow({width: 800, height: 600})
         Main.mainWindow
-            .loadURL('file://' + __dirname + '/index.html');
-        Main.mainWindow.on('closed', Main.onClose);
+            .loadURL('https://braintrainer.herokuapp.com/layout.html');
+        Main.mainWindow.on('close', Main.onClose);
+        Main.mainWindow.on('closed', Main.onClosed);
     }
+
 
     static main(app: Electron.App,
                 browserWindow: typeof BrowserWindow) {

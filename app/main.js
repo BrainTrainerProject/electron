@@ -14,8 +14,8 @@ var popupUrl = url.format({
 });
 var mb = menubar({
     index: popupUrl,
-    tooltip: "Correo",
-    icon: __dirname + "/res/icon.png",
+    tooltip: "Brain Trainer",
+    icon: __dirname + "/icon.png",
     width: 400,
     height: 500,
     transparent: true,
@@ -26,12 +26,18 @@ var mb = menubar({
 var isShown = false;
 var contextMenu = electron.Menu.buildFromTemplate([
     {
+        label: 'Open',
+        click: function () {
+            Main.mainWindow.show();
+        }
+    },
+    {
         label: 'About',
         click: function () {
             electron.dialog.showMessageBox({
-                title: "Correo",
+                title: "Brain Trainer",
                 type: "info",
-                message: "A menubar/taskbar Gmail App \nMIT Copyright (c) 2016 Amit Merchant <bullredeyes@gmail.com>",
+                message: "Train your brain with Brain Trainer today\nCreated as a semester project at Fh-Bielefeld Campus Minden, 2017",
                 buttons: ["Close"]
             });
         }
@@ -39,7 +45,7 @@ var contextMenu = electron.Menu.buildFromTemplate([
     {
         label: 'Website',
         click: function () {
-            electron.shell.openExternal("https://github.com/amitmerchant1990/correo");
+            electron.shell.openExternal("https://braintrainer.herokuapp.com/layout.html");
         }
     },
     {
@@ -48,6 +54,7 @@ var contextMenu = electron.Menu.buildFromTemplate([
     {
         label: 'Quit',
         click: function () {
+            Main.willQuit = true;
             mb.app.quit();
         }
     }
@@ -59,7 +66,13 @@ var Main = (function () {
         if (process.platform !== 'darwin')
             Main.application.quit();
     };
-    Main.onClose = function () {
+    Main.onClose = function (e) {
+        if (!Main.willQuit) {
+            e.preventDefault();
+            Main.mainWindow.hide();
+        }
+    };
+    Main.onClosed = function () {
         // Dereference the window object.
         Main.mainWindow = null;
     };
@@ -67,8 +80,9 @@ var Main = (function () {
         Main.mainWindow =
             new Main.BrowserWindow({ width: 800, height: 600 });
         Main.mainWindow
-            .loadURL('file://' + __dirname + '/index.html');
-        Main.mainWindow.on('closed', Main.onClose);
+            .loadURL('https://braintrainer.herokuapp.com/layout.html');
+        Main.mainWindow.on('close', Main.onClose);
+        Main.mainWindow.on('closed', Main.onClosed);
     };
     Main.main = function (app, browserWindow) {
         // we pass the Electron.App object and the
@@ -120,6 +134,7 @@ var Main = (function () {
             }
         });
     };
+    Main.willQuit = false;
     return Main;
 }());
 exports["default"] = Main;
