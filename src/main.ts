@@ -14,7 +14,7 @@ const popupUrl = url.format({
 const mb = menubar({
     index: popupUrl,
     tooltip: "Brain Trainer",
-    icon: __dirname + "/icon.png",
+    icon: __dirname + "/res/icon.png",
     width: 400,
     height: 500,
     transparent: true,
@@ -88,9 +88,13 @@ export default class Main {
 
     private static onReady() {
         Main.mainWindow =
-            new Main.BrowserWindow({width: 800, height: 600})
+            new Main.BrowserWindow({width: 800, height: 600,
+                icon: __dirname + '/res/icon.png',
+                autoHideMenuBar: true,
+                webPreferences: { devTools: false }})
         Main.mainWindow
-            .loadURL('https://braintrainer.herokuapp.com/layout.html');
+            .loadURL('http://192.168.178.21:8000/start');
+            // 'https://braintrainer.herokuapp.com/layout.html'
         Main.mainWindow.on('close', Main.onClose);
         Main.mainWindow.on('closed', Main.onClosed);
     }
