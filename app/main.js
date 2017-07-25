@@ -13,13 +13,13 @@ var popupUrl = url.format({
     slashes: true
 });
 var mb = menubar({
-    index: popupUrl,
+    index: "https://braintrainer.herokuapp.com/pracice/popup",
     tooltip: "Brain Trainer",
     icon: __dirname + "/res/icon.png",
     width: 400,
     height: 500,
-    transparent: true,
-    alwaysOnTop: false,
+    transparent: false,
+    alwaysOnTop: true,
     showOnRightClick: true,
     blurDelay: 100
 });
@@ -45,7 +45,7 @@ var contextMenu = electron.Menu.buildFromTemplate([
     {
         label: 'Website',
         click: function () {
-            electron.shell.openExternal("https://braintrainer.herokuapp.com/layout.html");
+            electron.shell.openExternal("https://braintrainer.herokuapp.com/start");
         }
     },
     {
@@ -83,8 +83,7 @@ var Main = (function () {
                 autoHideMenuBar: true,
                 webPreferences: { devTools: false } });
         Main.mainWindow
-            .loadURL('http://192.168.178.21:8000/start');
-        // 'https://braintrainer.herokuapp.com/layout.html'
+            .loadURL('https://braintrainer.herokuapp.com/start');
         Main.mainWindow.on('close', Main.onClose);
         Main.mainWindow.on('closed', Main.onClosed);
     };
