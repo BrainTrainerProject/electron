@@ -12,10 +12,10 @@ const popupUrl = url.format({
 });
 
 const mb = menubar({
-    index: "https://braintrainer.herokuapp.com/pracice/popup",
+    index: "https://braintrainer.herokuapp.com/practice/popup",
     tooltip: "Brain Trainer",
     icon: __dirname + "/res/icon.png",
-    width: 400,
+    width: 600,
     height: 500,
     transparent: false,
     alwaysOnTop: true,

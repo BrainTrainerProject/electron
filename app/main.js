@@ -13,7 +13,7 @@ var popupUrl = url.format({
     slashes: true
 });
 var mb = menubar({
-    index: "https://braintrainer.herokuapp.com/pracice/popup",
+    index: "http://192.168.178.21:8000/practice/popup",
     tooltip: "Brain Trainer",
     icon: __dirname + "/res/icon.png",
     width: 400,
@@ -81,9 +81,9 @@ var Main = (function () {
             new Main.BrowserWindow({ width: 800, height: 600,
                 icon: __dirname + '/res/icon.png',
                 autoHideMenuBar: true,
-                webPreferences: { devTools: false } });
+                webPreferences: { devTools: true } });
         Main.mainWindow
-            .loadURL('https://braintrainer.herokuapp.com/start');
+            .loadURL('http://192.168.178.21:8000/start');
         Main.mainWindow.on('close', Main.onClose);
         Main.mainWindow.on('closed', Main.onClosed);
     };
